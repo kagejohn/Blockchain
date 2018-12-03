@@ -11,7 +11,6 @@ namespace Blockchain
     class Blockchain
     {
         public IList<Block> Chain { set; get; }
-        private bool _valid = false;
 
         public Blockchain()
         {
@@ -27,7 +26,7 @@ namespace Blockchain
 
         public Block CreateGenesisBlock()
         {
-            return new Block(DateTime.Now, null, "{}");
+            return new Block(DateTime.Now, null, "{}", 0, 1);
         }
 
         public void AddGenesisBlock()
@@ -45,11 +44,10 @@ namespace Blockchain
             Block latestBlock = GetLatestBlock();
             block.Index = latestBlock.Index + 1;
             block.PreviousHash = latestBlock.Hash;
-            block.Hash = block.CalculateHash();
             Chain.Add(block);
         }
 
-        public bool IsValid()
+        public bool IsValid()// need to be fixed it doesn't check if the block have the needed zeros
         {
             for (int i = 1; i < Chain.Count; i++)
             {
