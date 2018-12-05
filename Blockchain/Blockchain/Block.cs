@@ -24,7 +24,7 @@ namespace Blockchain
             PreviousHash = previousHash;
             Data = data;
             Nonce = nonce;
-            Hash = MineBlock(difficulty);
+            Hash = MineBlockSequential(difficulty);
         }
 
         public string CalculateHash()
@@ -37,7 +37,7 @@ namespace Blockchain
             return Convert.ToBase64String(outputBytes);
         }
 
-        public string MineBlock(int difficulty)
+        public string MineBlockSequential(int difficulty)
         {
             string hash = "";
 
@@ -61,6 +61,54 @@ namespace Blockchain
                 }
 
                 Nonce++;
+            }
+
+            return hash;
+        }
+
+        public string MineBlockRandom(int difficulty)
+        {
+            int tries = 1;
+
+            if (Nonce == 0)
+            {
+                Nonce = 1;
+            }
+
+            string hash = "";
+
+            DateTime dateTime = DateTime.Now;
+
+            string prefix = "";
+
+            for (int i = 0; i < difficulty; i++)
+            {
+                prefix += "0";
+            }
+
+            Random random = new Random();
+            HashSet<int> hashSetInts = new HashSet<int>();
+
+            while (!hash.StartsWith(prefix))
+            {
+                hash = CalculateHash();
+
+                if (DateTime.Now > dateTime + TimeSpan.FromSeconds(1))
+                {
+                    Console.WriteLine("Tries: " + tries.ToString("N0"));
+                    dateTime = DateTime.Now;
+                }
+
+
+                Nonce = Convert.ToInt32(int.MaxValue * random.NextDouble());
+
+                while (hashSetInts.Contains(Nonce))
+                {
+                    Nonce++;
+                }
+
+                hashSetInts.Add(Nonce);
+                tries++;
             }
 
             return hash;
