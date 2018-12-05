@@ -26,7 +26,7 @@ namespace Blockchain
 
         public Block CreateGenesisBlock()
         {
-            return new Block(DateTime.Now, null, "{}", 0, 1);
+            return new Block(DateTime.Now, null, "{}", 0, 1, "sequential");
         }
 
         public void AddGenesisBlock()

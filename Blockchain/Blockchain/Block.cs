@@ -17,14 +17,22 @@ namespace Blockchain
         public string Data { get; set; }
         public int Nonce { get; set; }
 
-        public Block(DateTime timeStamp, string previousHash, string data, int nonce, int difficulty)
+        public Block(DateTime timeStamp, string previousHash, string data, int nonce, int difficulty, string minerType)
         {
             Index = 0;
             TimeStamp = timeStamp;
             PreviousHash = previousHash;
             Data = data;
             Nonce = nonce;
-            Hash = MineBlockSequential(difficulty);
+            switch (minerType.ToLower())
+            {
+                case "sequential":
+                    Hash = MineBlockSequential(difficulty);
+                    break;
+                case "random":
+                    Hash = MineBlockRandom(difficulty);
+                    break;
+            }
         }
 
         public string CalculateHash()

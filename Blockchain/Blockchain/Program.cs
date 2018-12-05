@@ -14,7 +14,21 @@ namespace Blockchain
         {
             _blockchain = new Blockchain();
 
-            Block block = new Block(DateTime.Now, null, "{sender:Mahesh,receiver:Henry,amount:5}", 0, 4);
+            string minerType = "";
+
+            Random random = new Random();
+            random.Next(1, 2);
+            switch (random.Next(1, 2))
+            {
+                case 1:
+                    minerType = "sequential";
+                    break;
+                case 2:
+                    minerType = "random";
+                    break;
+            }
+
+            Block block = new Block(DateTime.Now, null, "{sender:Mahesh,receiver:Henry,amount:5}", 0, 4, minerType);
 
             _blockchain.AddBlock(block);
 
