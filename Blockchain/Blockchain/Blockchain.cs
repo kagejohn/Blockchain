@@ -47,8 +47,15 @@ namespace Blockchain
             Chain.Add(block);
         }
 
-        public bool IsValid()// need to be fixed it doesn't check if the block have the needed zeros
+        public bool IsValid(int difficulty)
         {
+            string prefix = "";
+
+            for (int i = 0; i < difficulty; i++)
+            {
+                prefix += "0";
+            }
+
             for (int i = 1; i < Chain.Count; i++)
             {
                 Block currentBlock = Chain[i];
@@ -60,6 +67,11 @@ namespace Blockchain
                 }
 
                 if (currentBlock.PreviousHash != previousBlock.Hash)
+                {
+                    return false;
+                }
+
+                if (!currentBlock.Hash.StartsWith(prefix))
                 {
                     return false;
                 }
