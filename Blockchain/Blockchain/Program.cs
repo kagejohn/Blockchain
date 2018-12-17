@@ -8,7 +8,7 @@ namespace Blockchain
 {
     class Program
     {
-        private static Blockchain _blockchain;
+        public static Blockchain Blockchain;
         private static readonly List<Peer> Peers = new List<Peer>();
         private static readonly int Difficulty = 4;
         private static readonly List<Blockchain> TempBlockchains = new List<Blockchain>();
@@ -21,11 +21,11 @@ namespace Blockchain
 
             GetBlockchainFromPeers();
 
-            _blockchain = new Blockchain();// For test
+            Blockchain = new Blockchain();// For test
 
             Miner();
 
-            Console.WriteLine(JsonConvert.SerializeObject(_blockchain, Formatting.Indented));// For test
+            Console.WriteLine(JsonConvert.SerializeObject(Blockchain, Formatting.Indented));// For test
         }
 
         private static void Miner()
@@ -46,7 +46,7 @@ namespace Blockchain
 
             Block block = new Block(DateTime.Now, null, "{Hello World!}", 0, Difficulty, minerType);
 
-            _blockchain.AddBlock(block);
+            Blockchain.AddBlock(block);
         }
 
         private static void DiscoverPeers()
@@ -65,9 +65,8 @@ namespace Blockchain
 
             foreach (Peer peer in Peers)
             {
-                Blockchain blockchain = new Blockchain();
-
-                // Ask peers <----- TODO
+                P2PClient peerClient = new P2PClient();
+                Blockchain blockchain = peerClient.Connect(peer.Ip);
 
                 if (blockchain.IsValid(Difficulty))
                 {
@@ -87,7 +86,7 @@ namespace Blockchain
                 blockchainMatchsInt.Add(blockchainMatchBool.Count(c => c));
             }
 
-            _blockchain = TempBlockchains[blockchainMatchsInt.IndexOf(blockchainMatchsInt.Max())];
+            Blockchain = TempBlockchains[blockchainMatchsInt.IndexOf(blockchainMatchsInt.Max())];
         }
     }
 }
