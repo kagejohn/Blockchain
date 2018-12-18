@@ -6,16 +6,30 @@ services:
     build:
       context: .
       dockerfile: Blockchain\Dockerfile
-
-  nginx:
-    image: nginx
-    container_name: nginx-container_name
     networks:
-      static-network:
-        ipv4_address: 192.10.1.1
+      hostserver:
+        ipv4_address: 192.168.0.2
+
+  client1:
+    image: ${DOCKER_REGISTRY-}blockchain
+    networks:
+      hostserver:
+        ipv4_address: 192.168.0.4
+
+  client2:
+    image: ${DOCKER_REGISTRY-}blockchain
+    networks:
+      hostserver:
+        ipv4_address: 192.168.0.6
+
+  client3:
+    image: ${DOCKER_REGISTRY-}blockchain
+    networks:
+      hostserver:
+        ipv4_address: 192.168.0.8
 
 networks:
-  static-network:
+  hostserver:
     ipam:
       config:
-        - subnet: 192.10.0.0/16
+        - subnet: 192.168.0.0/16
