@@ -11,13 +11,13 @@ namespace Blockchain
     class P2PServer : WebSocketBehavior
     {
         bool chainSynched = false;
-        WebSocketServer wss = null;
+        WebSocketServer webSocketServer = null;
 
         public void Start()
         {
-            //wss = new WebSocketServer($"ws://127.0.0.1:{Program.Port}");
-            //wss.AddWebSocketService<P2PServer>("/Blockchain");
-            //wss.Start();
+            //webSocketServer = new WebSocketServer($"ws://127.0.0.1:{Program.Port}");
+            //webSocketServer.AddWebSocketService<P2PServer>("/Blockchain");
+            //webSocketServer.Start();
             //Console.WriteLine($"Started server at ws://127.0.0.1:{Program.Port}");
         }
 

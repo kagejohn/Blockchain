@@ -66,7 +66,7 @@ namespace Blockchain
             foreach (Peer peer in Peers)
             {
                 P2PClient peerClient = new P2PClient();
-                Blockchain blockchain = peerClient.Connect(peer.Ip);
+                Blockchain blockchain = peerClient.Connect(peer.Ip); 
 
                 if (blockchain.IsValid(Difficulty))
                 {

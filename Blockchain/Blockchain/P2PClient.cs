@@ -6,6 +6,7 @@ using WebSocketSharp;
 
 namespace Blockchain
 {
+    
     class P2PClient
     {
         private readonly IDictionary<string, WebSocket> _webSocketsDictionary = new Dictionary<string, WebSocket>();

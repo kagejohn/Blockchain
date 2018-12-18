@@ -6,3 +6,16 @@ services:
     build:
       context: .
       dockerfile: Blockchain\Dockerfile
+
+  nginx:
+    image: nginx
+    container_name: nginx-container_name
+    networks:
+      static-network:
+        ipv4_address: 192.10.1.1
+
+networks:
+  static-network:
+    ipam:
+      config:
+        - subnet: 192.10.0.0/16
