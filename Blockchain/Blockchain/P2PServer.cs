@@ -31,17 +31,27 @@ namespace Blockchain
             }
             else
             {
-                Blockchain newChain = JsonConvert.DeserializeObject<Blockchain>(e.Data);
-
-                if (newChain.IsValid(_difficulty) && newChain.Chain.Count > Program.Blockchain.Chain.Count)
+                try
                 {
-                    Program.Blockchain = newChain;
+                    Blockchain newChain = JsonConvert.DeserializeObject<Blockchain>(e.Data);
+
+                    if (newChain.IsValid(_difficulty) && newChain.Chain.Count > Program.Blockchain.Chain.Count)
+                    {
+                        Program.Blockchain = newChain;
+                    }
+
+                    if (!_chainSynched)
+                    {
+                        Send(JsonConvert.SerializeObject(Program.Blockchain));
+                        _chainSynched = true;
+                    }
                 }
-
-                if (!_chainSynched)
+                catch (Exception exception)
                 {
-                    Send(JsonConvert.SerializeObject(Program.Blockchain));
-                    _chainSynched = true;
+                    if (exception.Message != "Object reference not set to an instance of an object.")
+                    {
+                        Console.WriteLine(exception.Message);
+                    }
                 }
             }
         }
