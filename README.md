@@ -2,7 +2,7 @@
 System Integration Blockchain
 
 ## Teknisk Dokument
-Vi har udviklet en prototype for BlockChain og implementeret en række funktioner f.eks `mining of blocks`, men har stadig nogle få bugs som vi ikke har tid at løse. Programmet kører på P2P netværk og har 4 clients.
+Vi har udviklet en prototype for BlockChain og implementeret en række funktioner f.eks `mining of blocks`, men har stadig nogle få bugs som vi ikke har tid at fikse. Programmet kører på P2P netværk og har 4 clients.
 
 ### Setup
 For at kunne køre Programmet, skal man pre-install docker og docker skal køres i baggrund.
