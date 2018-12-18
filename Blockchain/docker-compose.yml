@@ -8,19 +8,29 @@ services:
       dockerfile: Blockchain/Dockerfile   
     container_name: client4_1
     ports:
-      - "8080:2222"
+      - "2222:80"
 
   client1:
     image: ${DOCKER_REGISTRY-}blockchain
+    build:
+      context: .
+      dockerfile: Blockchain/Dockerfile
     ports:
-      - "8081:2222"
+      - "2222:80"
 
   client2:
     image: ${DOCKER_REGISTRY-}blockchain
+    build:
+      context: .
+      dockerfile: Blockchain/Dockerfile
     ports:
-      - "8082:2222"
+      - "2222:80"
+
 
   client3:
     image: ${DOCKER_REGISTRY-}blockchain
+    build:
+      context: .
+      dockerfile: Blockchain/Dockerfile
     ports:
-      - "8083:2222"
+      - "2222:80"
