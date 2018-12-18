@@ -22,9 +22,16 @@ namespace Blockchain
             {
                 Blockchain blockchain = Connect(peer.Ip, true);
 
-                if (blockchain.IsValid(_difficulty))
+                try
                 {
-                    _tempBlockchains.Add(blockchain);
+                    if (blockchain.IsValid(_difficulty))
+                    {
+                        _tempBlockchains.Add(blockchain);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
                 }
             }
 
@@ -40,12 +47,20 @@ namespace Blockchain
                 blockchainMatchsInt.Add(blockchainMatchBool.Count(c => c));
             }
 
-            Program.Blockchain = _tempBlockchains[blockchainMatchsInt.IndexOf(blockchainMatchsInt.Max())];
+            try
+            {
+                Program.Blockchain = _tempBlockchains[blockchainMatchsInt.IndexOf(blockchainMatchsInt.Max())];
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         public Blockchain Connect(string url, bool initialization = false)
         {
             Blockchain newChain = null;
+            url = "ws://" + url + ":2222/Blockchain";
 
             if (!_webSocketsDictionary.ContainsKey(url))
             {
@@ -65,7 +80,15 @@ namespace Blockchain
                     {
                         try
                         {
-                            Program.Peers.AddRange(JsonConvert.DeserializeObject<List<Peer>>(e.Data));
+                            List<Peer> unknownPeers = JsonConvert.DeserializeObject<List<Peer>>(e.Data);
+
+                            foreach (Peer unknownPeer in unknownPeers)
+                            {
+                                if (unknownPeers.All(up => up.Ip != unknownPeer.Ip))
+                                {
+                                    Program.Peers.Add(unknownPeer);
+                                }
+                            }
                         }
                         catch (Exception e1)
                         {
