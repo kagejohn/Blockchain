@@ -5,7 +5,8 @@ System Integration Blockchain
 Vi har udviklet en prototype for BlockChain og implementeret en række funktioner f.eks `mining of blocks`, men har stadig nogle få bugs som vi ikke har tid at fikse. Programmet kører på P2P netværk og har 4 clients.
 
 ### Setup
-For at kunne køre Programmet, skal man pre-install docker og docker skal køres i baggrund.
+For at kunne køre Programmet, skal man pre-install docker og docker skal køres i baggrund. <br/>
+**Get Docker**: &nbsp;https://docs.docker.com/
 
 ### Deploy
 For at kunne køre Programmet korrekt, skal man ifølge instruktion:
