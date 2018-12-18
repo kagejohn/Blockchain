@@ -6,7 +6,7 @@ Vi har udviklet en prototype for BlockChain og implementeret en række funktione
 
 ### Setup
 For at kunne køre Programmet, skal man pre-install docker og docker skal køres i baggrund. <br/>
-**Get Docker**: &nbsp;https://docs.docker.com/
+**Get Docker**: https://docs.docker.com/
 
 ### Deploy
 For at kunne køre Programmet korrekt, skal man ifølge instruktion:
@@ -20,9 +20,9 @@ For at kunne køre Programmet korrekt, skal man ifølge instruktion:
 
 ## Sources
 Vi har ved hjælpe af følge links, programmeret denne prototype. <br/>
-Links: https://www.c-sharpcorner.com/article/blockchain-basics-building-a-blockchain-in-net-core/ <br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; https://www.c-sharpcorner.com/article/building-a-blockchain-in-net-core-p2p-network/ <br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; https://docs.docker.com/network/ <br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; https://docs.docker.com/compose/networking/ <br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; https://hub.docker.com/r/microsoft/dotnet/ <br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; https://stackoverflow.com/ <br/>
+https://www.c-sharpcorner.com/article/blockchain-basics-building-a-blockchain-in-net-core/ <br/>
+https://www.c-sharpcorner.com/article/building-a-blockchain-in-net-core-p2p-network/ <br/>
+https://docs.docker.com/network/ <br/>
+https://docs.docker.com/compose/networking/ <br/>
+https://hub.docker.com/r/microsoft/dotnet/ <br/>
+https://stackoverflow.com/ <br/>
