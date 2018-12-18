@@ -8,10 +8,9 @@ namespace Blockchain
 {
     class Program
     {
-        public static Blockchain Blockchain;
-        private static readonly List<Peer> Peers = new List<Peer>();
-        private static readonly int Difficulty = 4;
-        private static readonly List<Blockchain> TempBlockchains = new List<Blockchain>();
+        internal static Blockchain Blockchain;
+        internal static readonly List<Peer> Peers = new List<Peer>();
+        internal static readonly int Difficulty = 4;
 
         static void Main(string[] args)
         {
@@ -61,32 +60,8 @@ namespace Blockchain
 
         private static void GetBlockchainFromPeers()
         {
-            List<int> blockchainMatchsInt = new List<int>();
-
-            foreach (Peer peer in Peers)
-            {
-                P2PClient peerClient = new P2PClient();
-                Blockchain blockchain = peerClient.Connect(peer.Ip); 
-
-                if (blockchain.IsValid(Difficulty))
-                {
-                    TempBlockchains.Add(blockchain);
-                }
-            }
-
-            foreach (Blockchain blockchain1 in TempBlockchains)
-            {
-                List<bool> blockchainMatchBool = new List<bool>();
-
-                foreach (Blockchain blockchain2 in TempBlockchains)
-                {
-                    blockchainMatchBool.Add(blockchain1 == blockchain2);
-                }
-
-                blockchainMatchsInt.Add(blockchainMatchBool.Count(c => c));
-            }
-
-            Blockchain = TempBlockchains[blockchainMatchsInt.IndexOf(blockchainMatchsInt.Max())];
+            P2PClient client = new P2PClient();
+            client.ConnetAllPeers(Peers);
         }
     }
 }

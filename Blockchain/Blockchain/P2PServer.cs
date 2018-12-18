@@ -10,43 +10,39 @@ namespace Blockchain
 {
     class P2PServer : WebSocketBehavior
     {
-        bool chainSynched = false;
-        WebSocketServer webSocketServer = null;
+        private bool _chainSynched = false;
+        private WebSocketServer _webSocketServer = null;
+        private readonly int _difficulty = Program.Difficulty;
 
         public void Start()
         {
-            //webSocketServer = new WebSocketServer($"ws://127.0.0.1:{Program.Port}");
-            //webSocketServer.AddWebSocketService<P2PServer>("/Blockchain");
-            //webSocketServer.Start();
-            //Console.WriteLine($"Started server at ws://127.0.0.1:{Program.Port}");
+            string url = "ws://127.0.0.1:2222";
+            _webSocketServer = new WebSocketServer(url);
+            _webSocketServer.AddWebSocketService<P2PServer>("/Blockchain");
+            _webSocketServer.Start();
+            Console.WriteLine($"Started server at {url}");
         }
 
         protected override void OnMessage(MessageEventArgs e)
         {
-            if (e.Data == "Hi Server")
+            if (e.Data == "Tell me about your peers.")
             {
-                Console.WriteLine(e.Data);
-                Send("Hi Client");
+                Send(JsonConvert.SerializeObject(Program.Peers));
             }
             else
             {
-                //Blockchain newChain = JsonConvert.DeserializeObject<Blockchain>(e.Data);
+                Blockchain newChain = JsonConvert.DeserializeObject<Blockchain>(e.Data);
 
-                //if (newChain.IsValid() && newChain.Chain.Count > Program.PhillyCoin.Chain.Count)
-                //{
-                //    List<Transaction> newTransactions = new List<Transaction>();
-                //    newTransactions.AddRange(newChain.PendingTransactions);
-                //    newTransactions.AddRange(Program.PhillyCoin.PendingTransactions);
+                if (newChain.IsValid(_difficulty) && newChain.Chain.Count > Program.Blockchain.Chain.Count)
+                {
+                    Program.Blockchain = newChain;
+                }
 
-                //    newChain.PendingTransactions = newTransactions;
-                //    Program.PhillyCoin = newChain;
-                //}
-
-                //if (!chainSynched)
-                //{
-                //    Send(JsonConvert.SerializeObject(Program.PhillyCoin));
-                //    chainSynched = true;
-                //}
+                if (!_chainSynched)
+                {
+                    Send(JsonConvert.SerializeObject(Program.Blockchain));
+                    _chainSynched = true;
+                }
             }
         }
     }
