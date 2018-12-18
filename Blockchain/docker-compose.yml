@@ -1,35 +1,26 @@
 version: '3.4'
 
 services:
-  blockchain:
+  blockchain:   
     image: ${DOCKER_REGISTRY-}blockchain
     build:
       context: .
-      dockerfile: Blockchain\Dockerfile
-    networks:
-      hostserver:
-        ipv4_address: 192.168.0.2
+      dockerfile: Blockchain/Dockerfile   
+    container_name: client4_1
+    ports:
+      - "8080:2222"
 
   client1:
     image: ${DOCKER_REGISTRY-}blockchain
-    networks:
-      hostserver:
-        ipv4_address: 192.168.0.4
+    ports:
+      - "8081:2222"
 
   client2:
     image: ${DOCKER_REGISTRY-}blockchain
-    networks:
-      hostserver:
-        ipv4_address: 192.168.0.6
+    ports:
+      - "8082:2222"
 
   client3:
     image: ${DOCKER_REGISTRY-}blockchain
-    networks:
-      hostserver:
-        ipv4_address: 192.168.0.8
-
-networks:
-  hostserver:
-    ipam:
-      config:
-        - subnet: 192.168.0.0/16
+    ports:
+      - "8083:2222"
