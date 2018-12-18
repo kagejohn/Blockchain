@@ -10,7 +10,7 @@ For at kunne køre Programmet, skal man pre-install docker og docker skal køres
 
 ### Deploy
 For at kunne køre Programmet korrekt, skal man ifølge instruktion:
-1. Starter Terminal for macOS/Linux eller Command Prompt for Windows i den rigtig mappe, dvs.i projekt mappen hvor 
+1. Starter Terminal for macOS/Linux eller Command Prompt for Windows i den rigtig mappe, dvs. i projekt mappen hvor 
 `docker-compose.yml` fil er.
 2. Skriver `docker-compose up --build` i terminal eller command prompt.
 3. Venter til alle container er hentet og installation er færdig. <br/>
